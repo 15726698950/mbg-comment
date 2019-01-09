@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zzjeq.common.dao.system.SystmMerchantDao">
+  
+  <resultMap id="tbSystmMerchantMap" type="tbSystmMerchant">
+    <id column="merchant_id" property="merchantId" />
+    <result column="merchant_name" property="merchantName" />
+    <result column="merchant_code" property="merchantCode" />
+    <result column="merchant_parent_code" property="merchantParentCode" />
+    <result column="is_enable" property="isEnable" />
+  </resultMap>
+  
+  <select id="selectByPrimaryKey" parameterType="Integer" resultMap="tbSystmMerchantMap">
+    select t.merchant_id, t.merchant_name, t.merchant_code, t.merchant_parent_code, t.is_enable  from tb_systm_merchant   t
+    where t.merchant_id = #{merchantId}
+  </select>
+  
+  <insert id="insert" parameterType="tbSystmMerchant">
+    insert into tb_systm_merchant (merchant_id, merchant_name, merchant_code, merchant_parent_code, is_enable
+      )
+    values (#{merchantId}, #{merchantName}, #{merchantCode}, #{merchantParentCode}, #{isEnable}
+      )
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="tbSystmMerchant">
+    update tb_systm_merchant
+    <set>
+      <if test="merchantName != null">
+        merchant_name = #{merchantName},
+      </if>
+      <if test="merchantCode != null">
+        merchant_code = #{merchantCode},
+      </if>
+      <if test="merchantParentCode != null">
+        merchant_parent_code = #{merchantParentCode},
+      </if>
+      <if test="isEnable != null">
+        is_enable = #{isEnable}
+      </if>
+    </set>
+    where merchant_id = #{merchantId}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="Integer">
+    delete from tb_systm_merchant
+    where merchant_id = #{merchantId}
+  </delete>
+  
+  <update id="updateByPrimaryKey" parameterType="tbSystmMerchant">
+    update tb_systm_merchant
+    set merchant_name = #{merchantName},
+      merchant_code = #{merchantCode},
+      merchant_parent_code = #{merchantParentCode},
+      is_enable = #{isEnable}
+    where merchant_id = #{merchantId}
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="Integer">
+    delete from tb_systm_merchant
+    where merchant_id = #{merchantId}
+  </delete>
+</mapper>
